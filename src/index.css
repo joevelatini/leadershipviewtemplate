@@ -1,0 +1,38 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0f1923;
+  --navy2: #1a2736;
+  --navy3: #263248;
+  --red: #c0392b;
+  --red2: #e74c3c;
+  --orange: #d35400;
+  --slate: #34495e;
+  --muted: #7f8c8d;
+  --border: #dde3e9;
+  --white: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: #edf1f5;
+  min-height: 100vh;
+}
+
+/* === PRINT STYLES === */
+@media print {
+  body { background: white !important; }
+  .report-controls { display: none !important; }
+  .report-page { background: white !important; padding: 0 !important; }
+  .report-slide {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    max-width: 100% !important;
+    padding: 20px 24px !important;
+  }
+  .report-slide::before { display: none !important; }
+  @page { margin: 0.5in; }
+}

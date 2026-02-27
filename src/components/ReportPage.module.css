@@ -1,0 +1,363 @@
+.page {
+  background: #e8ecf0;
+  min-height: 100vh;
+  padding: 32px 24px 60px;
+}
+
+.controls {
+  max-width: 1080px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.backBtn {
+  background: #fff;
+  border: 1px solid #dde3e9;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #34495e;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.backBtn:hover { background: #f0f3f6; }
+
+.pdfBtn {
+  background: linear-gradient(135deg, #0f1923, #1a2736);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(15,25,35,0.3);
+}
+.pdfBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(15,25,35,0.4);
+}
+
+/* === REPORT SLIDE === */
+.slide {
+  max-width: 1080px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 16px 64px rgba(0,0,0,0.12);
+  padding: 44px 48px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #c0392b 0%, #e74c3c 50%, #d35400 100%);
+}
+
+.reportHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 36px;
+}
+
+.reportTitle {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f1923;
+  margin-bottom: 4px;
+}
+
+.reportSubtitle {
+  font-size: 13px;
+  color: #7f8c8d;
+  font-weight: 300;
+}
+
+.reportBadge {
+  background: #0f1923;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* === ORG CHART === */
+.org {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.ceoBox {
+  background: #0f1923;
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2px;
+  padding: 10px 52px;
+  border-radius: 8px;
+  text-transform: uppercase;
+}
+
+.orgConnectorV {
+  width: 2px;
+  height: 20px;
+  background: #c8d3db;
+}
+
+.orgHRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 90%;
+  position: relative;
+}
+
+.orgHRow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(100% / (var(--dept-count, 3) * 2));
+  right: calc(100% / (var(--dept-count, 3) * 2));
+  height: 2px;
+  background: #c8d3db;
+}
+
+.orgDeptWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.orgVLine {
+  width: 2px;
+  height: 18px;
+  background: #c8d3db;
+}
+
+.deptCard {
+  border: 2px dashed #b0bec5;
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: center;
+  background: #f8fbfd;
+  width: 88%;
+}
+
+.deptCardName {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #0f1923;
+  margin-bottom: 4px;
+}
+
+.deptCardPct {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #e74c3c;
+  line-height: 1;
+}
+
+.deptCardStat {
+  font-size: 11px;
+  color: #7f8c8d;
+  margin-top: 4px;
+}
+
+/* === TABLE === */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #dde3e9;
+}
+
+.th {
+  background: #0f1923;
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 14px 18px;
+  text-align: center;
+  border-left: 1px solid #2c3e50;
+}
+
+.thEmpty {
+  background: #1a2533;
+  border-left: none;
+  width: 155px;
+  min-width: 155px;
+}
+
+.rowHeader {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.45;
+  padding: 14px 12px;
+  width: 155px;
+  min-width: 155px;
+}
+
+.burnout { background: #c0392b; }
+.productivity { background: #a93226; }
+.habitual { background: #922b21; }
+.opportunity { background: #7b241c; }
+
+.cell {
+  padding: 16px 18px;
+  font-size: 12.5px;
+  color: #34495e;
+  border-top: 1px solid #e8edf2;
+  border-left: 1px solid #e8edf2;
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.cellBig {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  color: #0f1923 !important;
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.cellSub {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: #7f8c8d;
+  margin-top: 2px;
+}
+
+.cellSubMuted {
+  font-size: 10px;
+  color: #9aabb3;
+}
+
+.sup {
+  font-family: sans-serif;
+  font-size: 10px;
+  vertical-align: super;
+}
+
+.cellOpp {
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.oppHrs {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f1923;
+}
+
+.oppCalc {
+  font-size: 11px;
+  color: #7f8c8d;
+  margin: 3px 0 8px;
+}
+
+.oppFtes {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #c0392b;
+}
+
+.oppDollar {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #d35400;
+  margin-top: 2px;
+}
+
+.oppSalary {
+  font-size: 10px;
+  color: #aab;
+  margin-top: 3px;
+}
+
+.tag {
+  display: inline-block;
+  background: #e8f4fd;
+  color: #1a6fa8;
+  border-radius: 4px;
+  padding: 1px 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-family: 'Syne', sans-serif;
+  letter-spacing: 0.3px;
+}
+
+.nameList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nameList li {
+  font-size: 12px;
+  color: #546e7a;
+  padding: 1px 0 1px 12px;
+  position: relative;
+}
+
+.nameList li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: #e74c3c;
+  font-weight: 700;
+}
+
+.cellNote {
+  font-size: 10.5px;
+  color: #9aabb3;
+  font-style: italic;
+  margin-top: 6px;
+}
+
+.footnotes {
+  margin-top: 16px;
+  font-size: 10px;
+  color: #aab;
+  line-height: 1.9;
+}
