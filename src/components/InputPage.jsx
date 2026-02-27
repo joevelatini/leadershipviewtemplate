@@ -1,9 +1,8 @@
-import { useRef } from 'react'
 import styles from './InputPage.module.css'
 
 const BADGE_COLORS = ['#2980b9', '#27ae60', '#e67e22', '#8e44ad', '#16a085']
 
-export default function InputPage({ company, setCompany, depts, setDepts, nextId, setNextId, onGenerate }) {
+export default function InputPage({ company, setCompany, depts, setDepts, nextId, setNextId, onGenerate, onClear }) {
   const updateCompany = (field, val) => setCompany(prev => ({ ...prev, [field]: val }))
 
   const updateDept = (id, field, val) => {
@@ -36,6 +35,12 @@ export default function InputPage({ company, setCompany, depts, setDepts, nextId
       return
     }
     onGenerate()
+  }
+
+  const handleClear = () => {
+    if (window.confirm('Clear all data and start from scratch?')) {
+      onClear()
+    }
   }
 
   return (
@@ -73,7 +78,7 @@ export default function InputPage({ company, setCompany, depts, setDepts, nextId
               <input
                 type="text"
                 className={styles.input}
-                placeholder="e.g. November 2024"
+                placeholder="e.g. Q3 2024"
                 value={company.period}
                 onChange={e => updateCompany('period', e.target.value)}
               />
@@ -84,7 +89,7 @@ export default function InputPage({ company, setCompany, depts, setDepts, nextId
               <input
                 type="number"
                 className={styles.input}
-                placeholder="75000"
+                placeholder="e.g. 75000"
                 value={company.salary}
                 onChange={e => updateCompany('salary', e.target.value)}
               />
@@ -93,7 +98,7 @@ export default function InputPage({ company, setCompany, depts, setDepts, nextId
               <input
                 type="number"
                 className={styles.input}
-                placeholder="5.5"
+                placeholder="e.g. 5.5"
                 step="0.1"
                 value={company.targetHrs}
                 onChange={e => updateCompany('targetHrs', e.target.value)}
@@ -124,9 +129,16 @@ export default function InputPage({ company, setCompany, depts, setDepts, nextId
           </button>
         </div>
 
-        <button className={styles.generateBtn} onClick={handleGenerate}>
-          Generate Leadership View →
-        </button>
+        {/* Action Buttons */}
+        <div className={styles.actionRow}>
+          <button className={styles.clearBtn} onClick={handleClear}>
+            ↺ Clear All Data
+          </button>
+          <button className={styles.generateBtn} onClick={handleGenerate}>
+            Generate Leadership View →
+          </button>
+        </div>
+
       </div>
     </div>
   )
@@ -147,7 +159,7 @@ function FormGroup({ label, children }) {
   )
 }
 
-function DeptSection({ dept, idx, color, targetHrs, canRemove, onChange, onRemove }) {
+function DeptSection({ dept, idx, color, canRemove, onChange, onRemove }) {
   return (
     <div style={{
       background: 'rgba(255,255,255,0.02)',
@@ -183,22 +195,22 @@ function DeptSection({ dept, idx, color, targetHrs, canRemove, onChange, onRemov
 
       <TwoCol>
         <FormGroup label="Department Name">
-          <input type="text" style={inputStyle} placeholder="e.g. GTM" value={dept.name} onChange={e => onChange('name', e.target.value)} />
+          <input type="text" style={inputStyle} placeholder="e.g. Sales" value={dept.name} onChange={e => onChange('name', e.target.value)} />
         </FormGroup>
         <FormGroup label="% of Org Below Target">
-          <input type="number" style={inputStyle} placeholder="0" value={dept.pct} onChange={e => onChange('pct', e.target.value)} />
+          <input type="number" style={inputStyle} placeholder="e.g. 24" value={dept.pct} onChange={e => onChange('pct', e.target.value)} />
         </FormGroup>
       </TwoCol>
 
       <ThreeCol>
         <FormGroup label="Low Productivity Employees">
-          <input type="number" style={inputStyle} placeholder="0" value={dept.lowProd} onChange={e => onChange('lowProd', e.target.value)} />
+          <input type="number" style={inputStyle} placeholder="e.g. 45" value={dept.lowProd} onChange={e => onChange('lowProd', e.target.value)} />
         </FormGroup>
         <FormGroup label="Habitual Flags (3+ months)">
-          <input type="number" style={inputStyle} placeholder="0" value={dept.habitual} onChange={e => onChange('habitual', e.target.value)} />
+          <input type="number" style={inputStyle} placeholder="e.g. 18" value={dept.habitual} onChange={e => onChange('habitual', e.target.value)} />
         </FormGroup>
         <FormGroup label="Footnote (optional)">
-          <input type="text" style={inputStyle} placeholder="e.g. 34 excl. Field Sales" value={dept.habitualNote} onChange={e => onChange('habitualNote', e.target.value)} />
+          <input type="text" style={inputStyle} placeholder="e.g. excl. field reps" value={dept.habitualNote} onChange={e => onChange('habitualNote', e.target.value)} />
         </FormGroup>
       </ThreeCol>
 
@@ -206,7 +218,7 @@ function DeptSection({ dept, idx, color, targetHrs, canRemove, onChange, onRemov
         <FormGroup label="Burnout Risk Names (one per line)">
           <textarea
             style={{ ...inputStyle, minHeight: '72px', resize: 'vertical' }}
-            placeholder="James Holloway&#10;Sara Nettleton"
+            placeholder={"e.g. Employee Name\nEmployee Name\nEmployee Name"}
             value={dept.burnoutNames}
             onChange={e => onChange('burnoutNames', e.target.value)}
           />
@@ -215,10 +227,10 @@ function DeptSection({ dept, idx, color, targetHrs, canRemove, onChange, onRemov
 
       <TwoCol>
         <FormGroup label="Total 10+ Hr Day Employees">
-          <input type="number" style={inputStyle} placeholder="0" value={dept.burnoutTotal} onChange={e => onChange('burnoutTotal', e.target.value)} />
+          <input type="number" style={inputStyle} placeholder="e.g. 12" value={dept.burnoutTotal} onChange={e => onChange('burnoutTotal', e.target.value)} />
         </FormGroup>
         <FormGroup label="Recurring Note">
-          <input type="text" style={inputStyle} placeholder="e.g. 2 appear 3 months in a row" value={dept.burnoutRecurring} onChange={e => onChange('burnoutRecurring', e.target.value)} />
+          <input type="text" style={inputStyle} placeholder="e.g. 3 appear 3 months in a row" value={dept.burnoutRecurring} onChange={e => onChange('burnoutRecurring', e.target.value)} />
         </FormGroup>
       </TwoCol>
     </div>

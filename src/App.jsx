@@ -2,57 +2,41 @@ import { useState } from 'react'
 import InputPage from './components/InputPage'
 import ReportPage from './components/ReportPage'
 
-const DEFAULT_DEPTS = [
-  {
-    id: 1,
-    name: 'GTM',
-    pct: '26',
-    lowProd: '119',
-    habitual: '54',
-    habitualNote: '34 excluding Field Sales',
-    burnoutNames: 'James Holloway\nSara Nettleton\nPeter Vance\nClaire Dunmore\nRyan Okafor\nLaura Fischetti',
-    burnoutTotal: '8',
-    burnoutRecurring: '2 appear on list 3 months in a row',
-  },
-  {
-    id: 2,
-    name: 'Product & Engineering',
-    pct: '27',
-    lowProd: '130',
-    habitual: '39',
-    habitualNote: '',
-    burnoutNames: 'Marcus Tilden\nPriya Nair',
-    burnoutTotal: '9',
-    burnoutRecurring: '4 appear on list 3 months in a row',
-  },
-  {
-    id: 3,
-    name: 'G&A',
-    pct: '22',
-    lowProd: '38',
-    habitual: '18',
-    habitualNote: '',
-    burnoutNames: 'Tom Brennan\nSofia Mercer',
-    burnoutTotal: '5',
-    burnoutRecurring: '4 appear on list 3 months in a row',
-  },
-]
+export const BLANK_DEPT = (id) => ({
+  id,
+  name: '',
+  pct: '',
+  lowProd: '',
+  habitual: '',
+  habitualNote: '',
+  burnoutNames: '',
+  burnoutTotal: '',
+  burnoutRecurring: '',
+})
 
-const DEFAULT_COMPANY = {
+export const BLANK_COMPANY = {
   name: '',
   period: '',
-  salary: '75000',
-  targetHrs: '5.5',
+  salary: '',
+  targetHrs: '',
 }
+
+const INITIAL_DEPTS = [BLANK_DEPT(1), BLANK_DEPT(2), BLANK_DEPT(3)]
 
 export default function App() {
   const [page, setPage] = useState('input')
-  const [company, setCompany] = useState(DEFAULT_COMPANY)
-  const [depts, setDepts] = useState(DEFAULT_DEPTS)
+  const [company, setCompany] = useState({ ...BLANK_COMPANY })
+  const [depts, setDepts] = useState(INITIAL_DEPTS)
   const [nextId, setNextId] = useState(4)
 
   const goToReport = () => setPage('report')
   const goToInput = () => setPage('input')
+
+  const clearAll = () => {
+    setCompany({ ...BLANK_COMPANY })
+    setDepts([BLANK_DEPT(1), BLANK_DEPT(2), BLANK_DEPT(3)])
+    setNextId(4)
+  }
 
   return page === 'input'
     ? <InputPage
@@ -63,6 +47,7 @@ export default function App() {
         nextId={nextId}
         setNextId={setNextId}
         onGenerate={goToReport}
+        onClear={clearAll}
       />
     : <ReportPage
         company={company}
