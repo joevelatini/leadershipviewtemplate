@@ -157,7 +157,7 @@ function DeptSection({ dept, idx, color, targetHrs, canRemove, onChange, onRemov
       marginBottom: '16px',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-        <h3 style={{ fontFamily: 'Syne, sans-serif', fontSize: '14px', fontWeight: 700, color: '#fff', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <h3 style={{ fontFamily: "'Inter', -apple-system, sans-serif", fontSize: '14px', fontWeight: 700, color: '#fff', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{
             background: `${color}33`,
             color: color,
@@ -237,7 +237,7 @@ const inputStyle = {
   border: '1px solid rgba(255,255,255,0.12)',
   borderRadius: '8px',
   padding: '10px 14px',
-  fontFamily: "'DM Sans', sans-serif",
+  fontFamily: "'Inter', -apple-system, sans-serif",
   fontSize: '14px',
   color: '#fff',
   outline: 'none',

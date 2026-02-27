@@ -17,7 +17,7 @@
   border: 1px solid #dde3e9;
   border-radius: 8px;
   padding: 10px 20px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: #34495e;
@@ -31,21 +31,25 @@
   border: none;
   border-radius: 8px;
   padding: 10px 24px;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   color: #fff;
   cursor: pointer;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
   box-shadow: 0 4px 16px rgba(15,25,35,0.3);
 }
-.pdfBtn:hover {
+.pdfBtn:hover:not(:disabled) {
   transform: translateY(-1px);
   box-shadow: 0 6px 20px rgba(15,25,35,0.4);
+}
+.pdfBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 /* === REPORT SLIDE === */
@@ -76,17 +80,18 @@
 }
 
 .reportTitle {
-  font-family: 'Syne', sans-serif;
-  font-size: 24px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 22px;
   font-weight: 800;
   color: #0f1923;
   margin-bottom: 4px;
+  letter-spacing: -0.5px;
 }
 
 .reportSubtitle {
   font-size: 13px;
   color: #7f8c8d;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .reportBadge {
@@ -94,10 +99,10 @@
   color: #fff;
   padding: 8px 18px;
   border-radius: 6px;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -113,9 +118,9 @@
 .ceoBox {
   background: #0f1923;
   color: #fff;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 2px;
   padding: 10px 52px;
   border-radius: 8px;
@@ -140,8 +145,8 @@
   content: '';
   position: absolute;
   top: 0;
-  left: calc(100% / (var(--dept-count, 3) * 2));
-  right: calc(100% / (var(--dept-count, 3) * 2));
+  left: 16%;
+  right: 16%;
   height: 2px;
   background: #c8d3db;
 }
@@ -169,7 +174,7 @@
 }
 
 .deptCardName {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-weight: 700;
   font-size: 13px;
   color: #0f1923;
@@ -177,11 +182,12 @@
 }
 
 .deptCardPct {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 22px;
   font-weight: 800;
   color: #e74c3c;
   line-height: 1;
+  letter-spacing: -0.5px;
 }
 
 .deptCardStat {
@@ -202,10 +208,10 @@
 .th {
   background: #0f1923;
   color: #fff;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
   padding: 14px 18px;
   text-align: center;
   border-left: 1px solid #2c3e50;
@@ -214,21 +220,21 @@
 .thEmpty {
   background: #1a2533;
   border-left: none;
-  width: 155px;
-  min-width: 155px;
+  width: 150px;
+  min-width: 150px;
 }
 
 .rowHeader {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 11px;
   font-weight: 700;
   color: #fff;
   text-align: center;
   vertical-align: middle;
-  line-height: 1.45;
+  line-height: 1.5;
   padding: 14px 12px;
-  width: 155px;
-  min-width: 155px;
+  width: 150px;
+  min-width: 150px;
 }
 
 .burnout { background: #c0392b; }
@@ -244,12 +250,14 @@
   border-left: 1px solid #e8edf2;
   vertical-align: top;
   line-height: 1.6;
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 
 .cellBig {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 28px !important;
   font-weight: 800 !important;
+  letter-spacing: -1px;
   color: #0f1923 !important;
   text-align: center;
   vertical-align: middle !important;
@@ -257,11 +265,12 @@
 
 .cellSub {
   display: block;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 11px;
   font-weight: 400;
   color: #7f8c8d;
   margin-top: 2px;
+  letter-spacing: 0;
 }
 
 .cellSubMuted {
@@ -281,10 +290,11 @@
 }
 
 .oppHrs {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 14px;
   font-weight: 700;
   color: #0f1923;
+  letter-spacing: -0.3px;
 }
 
 .oppCalc {
@@ -294,18 +304,20 @@
 }
 
 .oppFtes {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 20px;
   font-weight: 800;
   color: #c0392b;
+  letter-spacing: -0.5px;
 }
 
 .oppDollar {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 15px;
   font-weight: 700;
   color: #d35400;
   margin-top: 2px;
+  letter-spacing: -0.3px;
 }
 
 .oppSalary {
@@ -319,12 +331,12 @@
   background: #e8f4fd;
   color: #1a6fa8;
   border-radius: 4px;
-  padding: 1px 8px;
+  padding: 2px 8px;
   font-size: 10.5px;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 8px;
-  font-family: 'Syne', sans-serif;
-  letter-spacing: 0.3px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  letter-spacing: 0.2px;
 }
 
 .nameList {
@@ -338,6 +350,7 @@
   color: #546e7a;
   padding: 1px 0 1px 12px;
   position: relative;
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 
 .nameList li::before {
@@ -353,6 +366,7 @@
   color: #9aabb3;
   font-style: italic;
   margin-top: 6px;
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 
 .footnotes {
@@ -360,4 +374,5 @@
   font-size: 10px;
   color: #aab;
   line-height: 1.9;
+  font-family: 'Inter', -apple-system, sans-serif;
 }

@@ -15,28 +15,29 @@
 }
 
 .eyebrow {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   color: #e74c3c;
   margin-bottom: 12px;
 }
 
 .title {
-  font-family: 'Syne', sans-serif;
-  font-size: 36px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 34px;
   font-weight: 800;
   color: #fff;
   line-height: 1.1;
   margin-bottom: 10px;
+  letter-spacing: -1px;
 }
 
 .subtitle {
   color: #8fa8be;
   font-size: 15px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .steps {
@@ -56,7 +57,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 13px;
   font-weight: 700;
   color: rgba(255,255,255,0.35);
@@ -85,10 +86,10 @@
 }
 
 .cardTitle {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 2.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: #e74c3c;
   margin-bottom: 22px;
@@ -116,7 +117,7 @@
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 8px;
   padding: 10px 14px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 14px;
   color: #fff;
   outline: none;
@@ -137,8 +138,9 @@
   border-radius: 8px;
   padding: 12px;
   color: rgba(255,255,255,0.4);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Inter', -apple-system, sans-serif;
   font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
   width: 100%;
   transition: all 0.2s;
@@ -154,14 +156,14 @@
   border: none;
   border-radius: 12px;
   padding: 18px 48px;
-  font-family: 'Syne', sans-serif;
-  font-size: 15px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 14px;
   font-weight: 700;
   color: #fff;
   cursor: pointer;
   width: 100%;
   margin-top: 8px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 8px 32px rgba(192,57,43,0.35);

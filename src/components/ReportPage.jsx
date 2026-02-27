@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import styles from './ReportPage.module.css'
 
 function calcDept(dept, salary, targetHrs) {
@@ -16,14 +17,72 @@ function calcDept(dept, salary, targetHrs) {
 function fmt(n) { return Number(n).toLocaleString() }
 function fmtD(n) { return '$' + Number(n).toLocaleString() }
 
+function slugify(str) {
+  return (str || '').trim().replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '').toLowerCase()
+}
+
 export default function ReportPage({ company, depts, onBack }) {
   const salary = company.salary || '75000'
   const targetHrs = company.targetHrs || '5.5'
+  const reportRef = useRef(null)
+  const [exporting, setExporting] = useState(false)
 
   const calculated = depts.map(d => calcDept(d, salary, targetHrs))
   const unusedPerDay = parseFloat(targetHrs) ? (8 - parseFloat(targetHrs)) : 2.5
-
   const footnoteDepts = depts.filter(d => d.habitualNote)
+
+  const handleDownloadPDF = async () => {
+    const { jsPDF } = window.jspdf
+    if (!window.html2canvas || !jsPDF) {
+      alert('PDF libraries not loaded yet. Please wait a moment and try again.')
+      return
+    }
+
+    setExporting(true)
+    try {
+      const element = reportRef.current
+      const canvas = await window.html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
+      })
+
+      const imgData = canvas.toDataURL('image/png')
+
+      // Letter size: 8.5 x 11 inches = 612 x 792 pts
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'pt',
+        format: 'letter',
+      })
+
+      const pageWidth = pdf.internal.pageSize.getWidth()   // 792
+      const pageHeight = pdf.internal.pageSize.getHeight() // 612
+
+      const imgWidth = canvas.width
+      const imgHeight = canvas.height
+      const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight)
+      const scaledW = imgWidth * ratio
+      const scaledH = imgHeight * ratio
+      const offsetX = (pageWidth - scaledW) / 2
+      const offsetY = (pageHeight - scaledH) / 2
+
+      pdf.addImage(imgData, 'PNG', offsetX, offsetY, scaledW, scaledH)
+
+      // Auto-generate filename from company name + period
+      const companySlug = slugify(company.name) || 'report'
+      const periodSlug = slugify(company.period) || new Date().toISOString().slice(0, 7)
+      pdf.save(`${companySlug}-leadership-view-${periodSlug}.pdf`)
+    } catch (err) {
+      console.error('PDF export failed:', err)
+      alert('PDF export failed. Please try again.')
+    } finally {
+      setExporting(false)
+    }
+  }
 
   return (
     <div className={`${styles.page} report-page`}>
@@ -32,14 +91,27 @@ export default function ReportPage({ company, depts, onBack }) {
         <button className={styles.backBtn} onClick={onBack}>
           ← Edit Data
         </button>
-        <button className={styles.pdfBtn} onClick={() => window.print()}>
-          <DownloadIcon />
-          Download PDF
+        <button
+          className={styles.pdfBtn}
+          onClick={handleDownloadPDF}
+          disabled={exporting}
+        >
+          {exporting ? (
+            <>
+              <SpinnerIcon />
+              Generating PDF...
+            </>
+          ) : (
+            <>
+              <DownloadIcon />
+              Download PDF
+            </>
+          )}
         </button>
       </div>
 
-      {/* Report Slide */}
-      <div className={`${styles.slide} report-slide`}>
+      {/* Report Slide — this is what gets captured */}
+      <div className={`${styles.slide} report-slide`} ref={reportRef}>
 
         {/* Header */}
         <div className={styles.reportHeader}>
@@ -55,7 +127,7 @@ export default function ReportPage({ company, depts, onBack }) {
           <div className={styles.ceoBox}>CEO</div>
           <div className={styles.orgConnectorV}></div>
           <div className={styles.orgHRow}>
-            {depts.map((dept, i) => (
+            {depts.map((dept) => (
               <div key={dept.id} className={styles.orgDeptWrap}>
                 <div className={styles.orgVLine}></div>
                 <div className={styles.deptCard}>
@@ -103,7 +175,7 @@ export default function ReportPage({ company, depts, onBack }) {
             {/* Productivity Row */}
             <tr>
               <td className={`${styles.rowHeader} ${styles.productivity}`}>≤ {targetHrs} Avg Daily Productivity</td>
-              {depts.map((d, i) => (
+              {depts.map((d) => (
                 <td key={d.id} className={`${styles.cell} ${styles.cellBig}`}>
                   {fmt(parseInt(d.lowProd) || 0)}
                   {footnoteDepts.indexOf(d) >= 0 && <sup className={styles.sup}>{footnoteDepts.indexOf(d) + 1}</sup>}
@@ -165,6 +237,15 @@ function DownloadIcon() {
       <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
       <polyline points="7 10 12 15 17 10"/>
       <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+  )
+}
+
+function SpinnerIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
+      <path d="M21 12a9 9 0 11-6.219-8.56"/>
+      <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
     </svg>
   )
 }
